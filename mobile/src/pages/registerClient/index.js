@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import Constants from 'expo-constants'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
@@ -21,7 +21,9 @@ export default function RegisterClient () {
 
   async function handleRegisterUser (businessName, socialNumber, email, phone) {
     try {
-      await api.post('/client', { businessName, socialNumber, email, phone })
+      const token = AsyncStorage.getItem('accessToken')
+
+      await api.post('/client', { businessName, socialNumber, email, phone }, { headers: { 'x-access-token': token } })
 
       Alert.alert('Cadastro feito com sucesso!')
     } catch (error) {

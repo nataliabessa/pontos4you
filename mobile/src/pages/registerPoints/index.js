@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import Constants from 'expo-constants'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
+import api from '../../services/api'
 
 export default function RegisterPoints () {
   const navigation = useNavigation()
@@ -17,7 +18,15 @@ export default function RegisterPoints () {
   }
 
   async function handlePoints (businessName, points) {
+    try {
+      const token = AsyncStorage.getItem('accessToken')
 
+      await api.put('/points', { businessName, points }, { headers: { 'x-access-token': token } })
+
+      Alert.alert('Pontos inseridos com sucesso!')
+    } catch (error) {
+      Alert.alert(error)
+    }
   }
 
   function navigateBack () {
