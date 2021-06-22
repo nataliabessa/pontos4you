@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Constants from 'expo-constants'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
+import api from '../../services/api'
 
 export default function Report () {
   const navigation = useNavigation()
@@ -18,7 +20,7 @@ export default function Report () {
 
   async function handleReport (businessName) {
     try {
-      const token = AsyncStorage.getItem('accessToken')
+      const token = useAsyncStorage.getItem('accessToken')
 
       const response = await api.put('/points', { businessName }, { headers: { 'x-access-token': token } })
 

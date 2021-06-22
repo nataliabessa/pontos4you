@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Constants from 'expo-constants'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
@@ -16,7 +17,7 @@ export default function Menu () {
   }
 
   async function handleLogoff () {
-    AsyncStorage.removeItem('accessToken')
+    useAsyncStorage.removeItem('accessToken')
     navigation.navigate('Login')
   }
 

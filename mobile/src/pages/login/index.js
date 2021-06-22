@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Constants from 'expo-constants'
 import { useFonts } from 'expo-font'
 
@@ -23,12 +24,13 @@ export default function Login () {
   async function handleLogin (email, password) {
     try {
       const response = await api.post('/login', { email, password })
-      navigation.navigate('Menu')
 
-      AsyncStorage.setItem({
+      useAsyncStorage.setItem({
         key: 'accessToken',
         value: response.token
       })
+
+      navigation.navigate('Menu')
     } catch (error) {
       Alert.alert(error)
     }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Constants from 'expo-constants'
 import { useNavigation } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
